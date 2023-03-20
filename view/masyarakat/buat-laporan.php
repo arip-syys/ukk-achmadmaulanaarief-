@@ -120,13 +120,6 @@
       </li>
       <!-- End laporan pengaduan -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="tanggapan.php">
-          <i class="bi bi-chat-left-dots"></i>
-          <span>Tanggapan</span>
-        </a>
-      </li><!-- End Register Page Nav -->
-
     </ul>
 
   </aside><!-- End Sidebar-->
@@ -151,8 +144,56 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Selamat Datang, Nama!</h5>
-              <p>Anda Login Sebgai Masyarakat. </p>
+              <h5 class="text-center card-title">Buat Laporan</h5>
+
+            <form class="row g-3 needs-validation" novalidate>
+              <div class="row mb-3">
+                  <label for="inputDate" class="col-sm-2 col-form-label">Tanggal Aduan</label>
+                  <div class="col-sm-10">
+                    <input type="date" class="form-control">
+                  </div>
+              </div>
+
+              <div class="row mb-3">
+                  <label for="inputNumber" class="col-sm-2 col-form-label">NIK</label>
+                  <div class="col-sm-10">
+                    <input type="number" class="form-control" readonly value="1234567890">
+                  </div>
+              </div>
+
+              <div class="row mb-3">
+                  <label for="inputText" class="col-sm-2 col-form-label">Judul Laporan</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control">
+                  </div>
+              </div>
+
+              <div class="row mb-3">
+                  <label for="inputPassword" class="col-sm-2 col-form-label">Isi Laporan</label>
+                  <div class="col-sm-10">
+                    <textarea class="form-control" style="height: 100px"></textarea>
+                  </div>
+              </div>
+
+              <div class="row mb-3">
+                  <label for="inputNumber" class="col-sm-2 col-form-label">Foto</label>
+                  <div class="col-sm-10">
+                    <input class="form-control" type="file" id="formFile">
+                  </div>
+              </div>
+
+              <div>
+                <input type="hidden" readonly value="proses">
+              </div>
+
+              <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label"></label>
+                  <div class="col-sm-10">
+                    <button type="submit" class="btn btn-primary">Tambah</button>
+                  </div>
+              </div>
+            </form>
+
             </div>
           </div>
 

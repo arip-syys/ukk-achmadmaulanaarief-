@@ -120,13 +120,6 @@
       </li>
       <!-- End laporan pengaduan -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="tanggapan.php">
-          <i class="bi bi-chat-left-dots"></i>
-          <span>Tanggapan</span>
-        </a>
-      </li><!-- End Register Page Nav -->
-
     </ul>
 
   </aside><!-- End Sidebar-->
@@ -151,8 +144,102 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Selamat Datang, Nama!</h5>
-              <p>Anda Login Sebgai Masyarakat. </p>
+              <h5 class="text-center card-title">Riwayat Laporan</h5>
+              
+              <!-- Bordered Tabs Justified -->
+              <ul class="nav nav-tabs nav-tabs-bordered d-flex" id="borderedTabJustified" role="tablist">
+                <li class="nav-item flex-fill" role="presentation">
+                  <button class="nav-link w-100 active" id="home-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-home" type="button" role="tab" aria-controls="home" aria-selected="true">Proses</button>
+                </li>
+                <li class="nav-item flex-fill" role="presentation">
+                  <button class="nav-link w-100" id="profile-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Tervalidasi</button>
+                </li>
+                <li class="nav-item flex-fill" role="presentation">
+                  <button class="nav-link w-100" id="contact-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Sudah ditanggapi</button>
+                </li>
+              </ul>
+              <div class="tab-content pt-2" id="borderedTabJustifiedContent">
+                <div class="tab-pane fade show active" id="bordered-justified-home" role="tabpanel" aria-labelledby="home-tab">
+                
+              <!-- Table with stripped rows -->
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col">Tanggal Aduan</th>
+                    <th scope="col">Judul Laporan</th>
+                    <th scope="col">Foto</th>
+                    <th scope="col">Aksi</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Brandon Jacob</td>
+                    <td>Designer</td>
+                    <td>28</td>
+                    <td>2016-05-25</td>
+                  </tr>
+                </tbody>
+              </table>
+              <!-- End Table with stripped rows -->
+
+                </div>
+                <div class="tab-pane fade" id="bordered-justified-profile" role="tabpanel" aria-labelledby="profile-tab">
+
+              <!-- Table with stripped rows -->
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col">Tanggal Aduan</th>
+                    <th scope="col">Judul Laporan</th>
+                    <th scope="col">Foto</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Brandon Jacob</td>
+                    <td>Designer</td>
+                    <td>28</td>
+                  </tr>
+                </tbody>
+              </table>
+              <!-- End Table with stripped rows -->
+
+                </div>
+                <div class="tab-pane fade" id="bordered-justified-contact" role="tabpanel" aria-labelledby="contact-tab">
+
+              <!-- Table with stripped rows -->
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col">Tanggal Aduan</th>
+                    <th scope="col">Judul Laporan</th>
+                    <th scope="col">Foto</th>
+                    <th scope="col">Aksi</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Brandon Jacob</td>
+                    <td>Designer</td>
+                    <td>28</td>
+                    <td>2016-05-25</td>
+                  </tr>
+                </tbody>
+              </table>
+              <!-- End Table with stripped rows -->
+
+                </div>
+              </div><!-- End Bordered Tabs Justified -->
+
             </div>
           </div>
 
