@@ -132,21 +132,14 @@ if ($_SESSION['level'] == "") {
 
       <!-- Start registrasi -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="validasi-laporan.php">
+        <a class="nav-link collapsed" href="tanggapan.php">
           <i class="bi bi-envelope"></i>
           <span>Tanggapan</span>
         </a>
       </li>
       <!-- End registrasi -->
 
-      <!-- Start generate laporan -->
-            <li class="nav-item">
-        <a class="nav-link collapsed" href="generate-laporan.php">
-          <i class="bi bi-file-text"></i>
-          <span>Generate Laporan</span>
-        </a>
-      </li>
-      <!-- End generate laporan -->
+
 
     </ul>
 

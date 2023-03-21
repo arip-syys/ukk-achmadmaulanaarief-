@@ -134,14 +134,8 @@ if ($_SESSION['level'] == "") {
       </li>
       <!-- End validasi -->
 
-      <!-- Start registrasi -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="tanggapan.php">
-          <i class="bi bi-envelope"></i>
-          <span>Tanggapan</span>
-        </a>
-      </li>
-      <!-- End registrasi -->
+
+
 
     </ul>
 
@@ -150,12 +144,12 @@ if ($_SESSION['level'] == "") {
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Validasi Laporan</h1>
+      <h1>Tanggapan</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.php">Home</a></li>
           <li class="breadcrumb-item">halaman</li>
-          <li class="breadcrumb-item active">Validasi Laporan</li>
+          <li class="breadcrumb-item active">Tanggapan</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -168,92 +162,88 @@ if ($_SESSION['level'] == "") {
       <div class="card">
             <div class="card-body">
               <h5 class="text-center card-title">Riwayat Laporan</h5>
-              
-              <!-- Bordered Tabs Justified -->
-              <ul class="nav nav-tabs nav-tabs-bordered d-flex" id="borderedTabJustified" role="tablist">
-                <li class="nav-item flex-fill" role="presentation">
-                  <button class="nav-link w-100 active" id="home-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-home" type="button" role="tab" aria-controls="home" aria-selected="true">Proses</button>
-                </li>
-                <li class="nav-item flex-fill" role="presentation">
-                  <button class="nav-link w-100" id="profile-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Tervalidasi</button>
-                </li>
 
-              </ul>
-              <div class="tab-content pt-2" id="borderedTabJustifiedContent">
-                <div class="tab-pane fade show active" id="bordered-justified-home" role="tabpanel" aria-labelledby="home-tab">
+                <?php $nomor = 1;
+                $id_pengaduan = $_GET['id_pengaduan'];
+                $ambil = $koneksi->query("SELECT *FROM pengaduan WHERE id_pengaduan='$id_pengaduan'");
+                while ($pecah = $ambil->fetch_assoc()) { ?>
+                <tr>
+
+                <form class="row g-3 needs-validation" method="post"novalidate>
+                    <div>
+                        <input type="hidden" name="id_pengaduan" readonly value="<?php echo $pecah["id_pengaduan"] ?>">
+                    </div>
+
+              <div class="row mb-3">
+                  <label for="inputText" class="col-sm-2 col-form-label">Tanggal Laporan</label>
+                  <div class="col-sm-10">
+                    <input type="text" name="tgl_pengaduan" class="form-control" readonly value="<?php echo $pecah["tgl_pengaduan"] ?>">
+                  </div>
+              </div>
+
+              <div class="row mb-3">
+                  <label for="inputText" class="col-sm-2 col-form-label">Judul Laporan</label>
+                  <div class="col-sm-10">
+                    <input type="text" name="judul_laporan" class="form-control" readonly value="<?php echo $pecah["judul_laporan"] ?>">
+                  </div>
+              </div>
+
+              <div class="row mb-3">
+                  <label for="inputPassword" class="col-sm-2 col-form-label">Isi Laporan</label>
+                  <div class="col-sm-10">
+                  <input type="text" name="judul_laporan" class="form-control" style="height: 100px;" readonly value="<?php echo $pecah["isi_laporan"] ?>">
+                  </div>
+              </div>
+
+              <div class="row mb-3">
+                  <label for="inputNumber" class="col-sm-2 col-form-label">Foto</label>
+                  <div class="col-sm-10">
+                  <img src="../../masyarakat/0-<?php echo $pecah["foto"] ?>" width="500">
+                  </div>
+              </div>
+
+              <div class="row mb-3">
+                  <label for="inputPassword" class="col-sm-2 col-form-label">Tanggapan</label>
+                  <div class="col-sm-10">
+                  <input type="text" name="tanggapan" class="form-control" style="height: 100px;">
+                  </div>
+              </div>
+
+              <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label"></label>
+                  <div class="col-sm-10">
+                    <button type="submit" name="tambah" class="btn btn-primary">Tambah</button>
+                  </div>
+              </div>
+            </form>
                 
-              <!-- Table with stripped rows -->
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th scope="col">No.</th>
-                    <th scope="col">Tanggal Aduan</th>
-                    <th scope="col">Judul Laporan</th>
-                    <th scope="col">Foto</th>
-                    <th scope="col">Aksi</th>
-
-                  </tr>
-                </thead>
-                <tbody>
-                <?php $nomor = 1;
-                $ambil = $koneksi->query("SELECT *FROM pengaduan WHERE status='proses'");
-                while ($pecah = $ambil->fetch_assoc()) { ?>
-                <tr>
-                <td><?php echo $nomor; ?></td>
-                <td><?php echo date("d F Y", strtotime($pecah['tgl_pengaduan'])) ?></td>
-                <td><?php echo $pecah["judul_laporan"] ?></td>
-                <td><img src="../../masyarakat/0-<?php echo $pecah["foto"] ?>" width="100"></td>
-                <td>
-                    <a href="validasi-laporan.php?id_pengaduan=<?=$pecah['id_pengaduan']?>" class="btn btn-primary">Validasi</a>
-                </td>
-                </tr>
                 <?php $nomor++; ?>
                 <?php } ?>
-                </tbody>
-              </table>
-              <!-- End Table with stripped rows -->
+                <?php
+if (isset($_POST["tambah"])) {
+$id_pengaduan = $_POST['id_pengaduan'];
+$judul_laporan = $_POST['judul_laporan'];
+$tgl_pengaduan = $_POST['tgl_pengaduan'];
+$tgl_tanggapan = date("Y-m-d");
+$tanggapan = $_POST['tanggapan'];
 
-                </div>
-                <div class="tab-pane fade" id="bordered-justified-profile" role="tabpanel" aria-labelledby="profile-tab">
+$koneksi->query("INSERT INTO tanggapan
+    (id_pengaduan, judul_laporan, tgl_pengaduan, tgl_tanggapan, tanggapan)
+    VALUES ('$id_pengaduan','$judul_laporan','$tgl_pengaduan','$tgl_tanggapan','$tanggapan')");
+echo "<script> alert('Laporan Sudah Bertambah');</script>";
+echo "<script>location='tanggapan.php';</script>";
+}
+if (isset($_POST["tambah"])) {
+    $status = $_POST['status'];
 
-              <!-- Table with stripped rows -->
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th scope="col">No.</th>
-                    <th scope="col">Tanggal Aduan</th>
-                    <th scope="col">Judul Laporan</th>
-                    <th scope="col">Foto</th>
-
-                  </tr>
-                </thead>
-                <tbody>
-                <?php $nomor = 1;
-                $ambil = $koneksi->query("SELECT *FROM pengaduan WHERE status='validasi'");
-                while ($pecah = $ambil->fetch_assoc()) { ?>
-                <tr>
-                <td><?php echo $nomor; ?></td>
-                <td><?php echo date("d F Y", strtotime($pecah['tgl_pengaduan'])) ?></td>
-                <td><?php echo $pecah["judul_laporan"] ?></td>
-                <td><img src="../../masyarakat/0-<?php echo $pecah["foto"] ?>" width="100"></td>
-                <td>
-                <a href="validasi-laporan.php?id_pengaduan=<?=$pecah['id_pengaduan']?>" class="btn btn-primary">Edit</a>
-                </td>
-                </tr>
-                <?php $nomor++; ?>
-                <?php } ?>
-                </tbody>
-              </table>
-              <!-- End Table with stripped rows -->
-
-                </div>
-
-              </div><!-- End Bordered Tabs Justified -->
-
+$koneksi->query("UPDATE pengaduan SET status='ditanggapi' WHERE id_pengaduan='$id_pengaduan'");
+}
+?>
+?>
             </div>
-          </div>
+      </div>
 
-        </div>
+      </div>
 
       </div>
     </section>

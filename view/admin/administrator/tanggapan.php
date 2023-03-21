@@ -127,7 +127,7 @@ if ($_SESSION['level'] == "") {
 
       <!-- Start validasi -->
       <li class="nav-item">
-        <a class="nav-link " href="validasi.php">
+        <a class="nav-link collapsed" href="validasi.php">
           <i class="bi bi-patch-check"></i>
           <span>Validasi Laporan</span>
         </a>
@@ -136,12 +136,14 @@ if ($_SESSION['level'] == "") {
 
       <!-- Start registrasi -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="tanggapan.php">
+        <a class="nav-link " href="tanggapan.php">
           <i class="bi bi-envelope"></i>
           <span>Tanggapan</span>
         </a>
       </li>
       <!-- End registrasi -->
+
+
 
     </ul>
 
@@ -150,12 +152,12 @@ if ($_SESSION['level'] == "") {
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Validasi Laporan</h1>
+      <h1>Tanggapan</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-          <li class="breadcrumb-item">halaman</li>
-          <li class="breadcrumb-item active">Validasi Laporan</li>
+          <li class="breadcrumb-item">Halaman</li>
+          <li class="breadcrumb-item active">Tanggapan</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -196,7 +198,7 @@ if ($_SESSION['level'] == "") {
                 </thead>
                 <tbody>
                 <?php $nomor = 1;
-                $ambil = $koneksi->query("SELECT *FROM pengaduan WHERE status='proses'");
+                $ambil = $koneksi->query("SELECT *FROM pengaduan WHERE status='validasi'");
                 while ($pecah = $ambil->fetch_assoc()) { ?>
                 <tr>
                 <td><?php echo $nomor; ?></td>
@@ -204,7 +206,7 @@ if ($_SESSION['level'] == "") {
                 <td><?php echo $pecah["judul_laporan"] ?></td>
                 <td><img src="../../masyarakat/0-<?php echo $pecah["foto"] ?>" width="100"></td>
                 <td>
-                    <a href="validasi-laporan.php?id_pengaduan=<?=$pecah['id_pengaduan']?>" class="btn btn-primary">Validasi</a>
+                    <a href="tanggapan-beri.php?id_pengaduan=<?=$pecah['id_pengaduan']?>" class="btn btn-primary">Beri Tanggapan</a>
                 </td>
                 </tr>
                 <?php $nomor++; ?>
@@ -217,28 +219,36 @@ if ($_SESSION['level'] == "") {
                 <div class="tab-pane fade" id="bordered-justified-profile" role="tabpanel" aria-labelledby="profile-tab">
 
               <!-- Table with stripped rows -->
+              <div class="row mb-3">
+                  <label for="inputText" class="col-sm-2 col-form-label">Generate Laporan to PDF</label>
+                  <div class="col-sm-10">
+                  <a href="print.php?id_tanggapan=<?=$pecah['id_tanggapan']?>" target="_blank" class="btn btn-primary">Print</a>
+                  </div>
+              </div>
+
               <table class="table table-striped">
                 <thead>
                   <tr>
                     <th scope="col">No.</th>
                     <th scope="col">Tanggal Aduan</th>
+                    <th scope="col">Tanggal Tanggapan</th>
                     <th scope="col">Judul Laporan</th>
-                    <th scope="col">Foto</th>
+                    <th scope="col">Tanggapan</th>
+                    
 
                   </tr>
                 </thead>
                 <tbody>
                 <?php $nomor = 1;
-                $ambil = $koneksi->query("SELECT *FROM pengaduan WHERE status='validasi'");
+                $ambil = $koneksi->query("SELECT *FROM tanggapan");
                 while ($pecah = $ambil->fetch_assoc()) { ?>
                 <tr>
                 <td><?php echo $nomor; ?></td>
                 <td><?php echo date("d F Y", strtotime($pecah['tgl_pengaduan'])) ?></td>
+                <td><?php echo date("d F Y", strtotime($pecah['tgl_tanggapan'])) ?></td>
                 <td><?php echo $pecah["judul_laporan"] ?></td>
-                <td><img src="../../masyarakat/0-<?php echo $pecah["foto"] ?>" width="100"></td>
-                <td>
-                <a href="validasi-laporan.php?id_pengaduan=<?=$pecah['id_pengaduan']?>" class="btn btn-primary">Edit</a>
-                </td>
+                <td><?php echo $pecah["tanggapan"] ?></td>
+
                 </tr>
                 <?php $nomor++; ?>
                 <?php } ?>
@@ -252,6 +262,10 @@ if ($_SESSION['level'] == "") {
 
             </div>
           </div>
+
+        </div>
+
+      </div>
 
         </div>
 

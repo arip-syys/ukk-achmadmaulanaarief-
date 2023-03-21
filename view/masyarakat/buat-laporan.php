@@ -223,7 +223,7 @@ $koneksi->query("INSERT INTO pengaduan
     (id_masyarakat, tgl_pengaduan, nik, judul_laporan, isi_laporan, foto, status)
     VALUES ('$id_masyarakat','$tgl_pengaduan','$nik','$judul_laporan','$isi_laporan','$foto','$status')");
 echo "<script> alert('Laporan Sudah Bertambah');</script>";
-echo "<script>location='buat-laporan.php';</script>";
+echo "<script>location='riwayat-laporan.php';</script>";
 }
 ?>
 
