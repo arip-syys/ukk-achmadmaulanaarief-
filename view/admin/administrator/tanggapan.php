@@ -225,8 +225,24 @@ if ($_SESSION['level'] == "") {
                   <a href="print.php?id_tanggapan=<?=$pecah['id_tanggapan']?>" target="_blank" class="btn btn-primary">Print</a>
                   </div>
               </div>
+              <?php 
+		$s_bulan="";
+        $s_keyword="";
+        if (isset($_POST['search'])) {
+            $s_jurusan = $_POST['bulan'];
+            $s_keyword = $_POST['s_keyword'];
+        }
+	?>
+              <div class="form-group">
+		            <select name="s_jurusan" id="bulan" class="form-control">
+		                <option value="">Filter Jurusan</option>
+		                <option value="Sistem Informasi" <?php if ($s_jurusan=="Sistem Informasi"){ echo "selected"; } ?>>Sistem Informasi</option>
+		                <option value="Teknik Informatika" <?php if ($s_jurusan=="Teknik Informatika"){ echo "selected"; } ?>>Teknik Informatika</option>
+		            </select>
+		        </div>
 
               <table class="table table-striped">
+              
                 <thead>
                   <tr>
                     <th scope="col">No.</th>
