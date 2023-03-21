@@ -1,3 +1,7 @@
+<?php
+session_start();
+include 'koneksi.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,6 +44,15 @@
 
 <body>
 
+<?php
+include 'koneksi.php';
+if (isset($_SESSION["masyarakat"])) : ?><?php
+$id_masyarakat = $_SESSION["masyarakat"]['id_masyarakat'];
+$ambil = $koneksi->query("SELECT *FROM masyarakat WHERE id_masyarakat='$id_masyarakat'");
+$pecah = $ambil->fetch_assoc(); ?>
+<?php else : ?>
+<?php endif ?>
+
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
 
@@ -57,12 +70,12 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <span class="d-none d-md-block dropdown-toggle ps-2">Nama</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $_SESSION["masyarakat"]["nama"] ?></span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>Nama</h6>
+              <h6><?php echo $_SESSION["masyarakat"]["nama"] ?></h6>
               <span>Masyarakat</span>
             </li>
 
@@ -71,7 +84,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="../logout.php">
+              <a class="dropdown-item d-flex align-items-center" href="logout.php">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Logout</span>
               </a>
@@ -143,7 +156,7 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="text-center card-title">Selamat Datang, Nama!</h5>
+              <h5 class="text-center card-title">Selamat Datang, <?php echo $_SESSION["masyarakat"]["nama"] ?>!</h5>
               <p class="text-center">Anda Login Sebagai Masyarakat. </p>
             </div>
           </div>

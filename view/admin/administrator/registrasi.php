@@ -1,3 +1,7 @@
+<?php
+session_start();
+include '../koneksi.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -109,6 +113,15 @@
       </li>
       <!-- End registrasi -->
 
+      <!-- Start validasi -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="validasi.php">
+          <i class="bi bi-patch-check"></i>
+          <span>Validasi Laporan</span>
+        </a>
+      </li>
+      <!-- End validasi -->
+
       <!-- Start registrasi -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="validasi-laporan.php">
@@ -117,6 +130,15 @@
         </a>
       </li>
       <!-- End registrasi -->
+
+      <!-- Start generate laporan -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="generate-laporan.php">
+          <i class="bi bi-file-text"></i>
+          <span>Generate Laporan</span>
+        </a>
+      </li>
+      <!-- End generate laporan -->
 
     </ul>
 
@@ -144,7 +166,7 @@
             <div class="card-body">
               <h5 class="text-center card-title">Registrasi</h5>
 
-              <form class="row g-3 needs-validation" novalidate>
+              <form class="row g-3 needs-validation" method="post" novalidate>
               <div class="col-12">
                       <label for="namaPetugas" class="form-label">Nama Petugas</label>
                       <input type="text" name="nama_petugas" class="form-control" id="namaPetugas" required placeholder="...">
@@ -171,7 +193,7 @@
 
                     <div class="col-12">
                       <label for="level" class="form-label">Level</label>
-                        <select class="form-select" aria-label="Default select example">
+                        <select class="form-select" name="level" aria-label="Default select example">
                             <option selected>...</option>
                             <option value="administrator">Adminisatrator</option>
                             <option value="petugas">Petugas</option>
@@ -179,9 +201,25 @@
                     </div>
 
                     <div class="col-12 text-center">
-                        <button type="submit" class="btn btn-primary">Registrasi</button>
+                        <button type="submit" name="register" class="btn btn-primary">Registrasi</button>
                     </div>
                   </form>
+
+<?php
+if (isset($_POST["register"])) {
+$nama_petugas = $_POST['nama_petugas'];
+$username = $_POST['username'];
+$password = $_POST['password'];
+$telp = $_POST['telp'];
+$level = $_POST['level'];
+
+$koneksi->query("INSERT INTO petugas
+    (nama_petugas, username, password, telp, level)
+    VALUES ('$nama_petugas','$username','$password','telp','$level')");
+echo "<script> alert('Berhasil Registrasi');</script>";
+echo "<script>location='registrasi.php';</script>";
+}
+?>
               
             </div>
           </div>

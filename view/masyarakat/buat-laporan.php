@@ -1,3 +1,7 @@
+<?php
+session_start();
+include 'koneksi.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,6 +44,15 @@
 
 <body>
 
+<?php
+include 'koneksi.php';
+if (isset($_SESSION["masyarakat"])) : ?><?php
+$id_masyarakat = $_SESSION["masyarakat"]['id_masyarakat'];
+$ambil = $koneksi->query("SELECT *FROM masyarakat WHERE id_masyarakat='$id_masyarakat'");
+$pecah = $ambil->fetch_assoc(); ?>
+<?php else : ?>
+<?php endif ?>
+
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
 
@@ -57,12 +70,12 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <span class="d-none d-md-block dropdown-toggle ps-2">Nama</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $_SESSION["masyarakat"]["nama"] ?></span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>Nama</h6>
+              <h6><?php echo $_SESSION["masyarakat"]["nama"] ?></h6>
               <span>Masyarakat</span>
             </li>
 
@@ -71,7 +84,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="../logout.php">
+              <a class="dropdown-item d-flex align-items-center" href="logout.php">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Logout</span>
               </a>
@@ -146,53 +159,73 @@
             <div class="card-body">
               <h5 class="text-center card-title">Buat Laporan</h5>
 
-            <form class="row g-3 needs-validation" novalidate>
-              <div class="row mb-3">
-                  <label for="inputDate" class="col-sm-2 col-form-label">Tanggal Aduan</label>
-                  <div class="col-sm-10">
-                    <input type="date" class="form-control">
-                  </div>
+            <form class="row g-3 needs-validation" method="post" enctype="multipart/form-data" novalidate>
+              <div>
+                <input type="hidden" name="id_masyarakat" readonly value="<?php echo $_SESSION["masyarakat"]['id_masyarakat'] ?>">
               </div>
-
               <div class="row mb-3">
                   <label for="inputNumber" class="col-sm-2 col-form-label">NIK</label>
                   <div class="col-sm-10">
-                    <input type="number" class="form-control" readonly value="1234567890">
+                    <input type="number" name="nik" class="form-control" readonly value="<?php echo $_SESSION["masyarakat"]['nik'] ?>">
                   </div>
               </div>
 
               <div class="row mb-3">
                   <label for="inputText" class="col-sm-2 col-form-label">Judul Laporan</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control">
+                    <input type="text" name="judul_laporan" class="form-control">
                   </div>
               </div>
 
               <div class="row mb-3">
                   <label for="inputPassword" class="col-sm-2 col-form-label">Isi Laporan</label>
                   <div class="col-sm-10">
-                    <textarea class="form-control" style="height: 100px"></textarea>
+                    <textarea class="form-control" name="isi_laporan" style="height: 100px"></textarea>
                   </div>
               </div>
 
               <div class="row mb-3">
                   <label for="inputNumber" class="col-sm-2 col-form-label">Foto</label>
                   <div class="col-sm-10">
-                    <input class="form-control" type="file" id="formFile">
+                    <input class="form-control" name="foto" type="file" id="formFile">
                   </div>
               </div>
 
               <div>
-                <input type="hidden" readonly value="proses">
+                <input type="hidden" name="status" readonly value="proses">
               </div>
 
               <div class="row mb-3">
                   <label class="col-sm-2 col-form-label"></label>
                   <div class="col-sm-10">
-                    <button type="submit" class="btn btn-primary">Tambah</button>
+                    <button type="submit" name="tambah" class="btn btn-primary">Tambah</button>
                   </div>
               </div>
             </form>
+
+<?php
+if (isset($_POST["tambah"])) {
+$id_masyarakat = $_POST['id_masyarakat'];
+$tgl_pengaduan = date("Y-m-d");
+$nik = $_POST['nik'];
+$judul_laporan = $_POST['judul_laporan'];
+$isi_laporan = $_POST['isi_laporan'];
+$status = $_POST['status'];
+$foto = $_FILES['foto']['name'];
+$tmp = $_FILES['foto']['tmp_name'];
+$lokasi = '';
+$nama_foto = rand(0,0).'-'.$foto;
+
+move_uploaded_file($tmp, $lokasi.$nama_foto);
+
+
+$koneksi->query("INSERT INTO pengaduan
+    (id_masyarakat, tgl_pengaduan, nik, judul_laporan, isi_laporan, foto, status)
+    VALUES ('$id_masyarakat','$tgl_pengaduan','$nik','$judul_laporan','$isi_laporan','$foto','$status')");
+echo "<script> alert('Laporan Sudah Bertambah');</script>";
+echo "<script>location='buat-laporan.php';</script>";
+}
+?>
 
             </div>
           </div>

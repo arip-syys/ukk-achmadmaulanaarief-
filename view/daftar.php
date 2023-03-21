@@ -1,3 +1,7 @@
+<?php
+session_start();
+include 'koneksi.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -64,7 +68,7 @@
                     <p class="text-center small">Buat akun personal</p>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate>
+                  <form class="row g-3 needs-validation" method="post" novalidate>
                     <div class="col-12">
                       <label for="nik" class="form-label">NIK</label>
                       <input type="number" name="nik" class="form-control" id="nik" required>
@@ -96,12 +100,38 @@
                     </div>
 
                     <div class="col-12">
-                      <button class="btn btn-primary w-100" type="daftar">Daftar Sekarang</button>
+                      <button class="btn btn-primary w-100" type="submit" name="daftar">Daftar Sekarang</button>
                     </div>
                     <div class="col-12">
                       <p class="small mb-0">Sudah memiliki akun? <a href="index.php">Log in</a></p>
                     </div>
                   </form>
+
+<?php
+if (isset($_POST["daftar"])) {
+    $nik = $_POST['nik'];
+    $nama = $_POST['nama'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $telp = $_POST['telp'];
+
+    //cek apakah email sudah ada
+    $ambil = $koneksi->query("SELECT*FROM masyarakat
+	WHERE nik='$nik'");
+    $yangcocok = $ambil->num_rows;
+    if ($yangcocok == 1) {
+        echo "<script>alert('pendaftaran gagal, nik sudah ada')</script>";
+        echo "<script>location='daftar.php';</script>";
+    } else {
+        $koneksi->query("INSERT INTO masyarakat
+        (nik, nama, username, password, telp)
+        VALUES ('$nik','$nama','$username','$password','$telp')");
+
+        echo "<script>alert('pendaftaran berhasil')</script>";
+        echo "<script>location='index.php';</script>";
+    }
+}
+?>
 
                 </div>
               </div>

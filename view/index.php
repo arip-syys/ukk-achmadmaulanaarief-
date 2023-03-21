@@ -1,3 +1,7 @@
+<?php
+session_start();
+include 'koneksi.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -64,7 +68,7 @@
                     <p class="text-center small">Masukan username & password untuk login</p>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate>
+                  <form class="row g-3 needs-validation" method="post" novalidate>
 
                     <div class="col-12">
                       <label for="username" class="form-label">Username</label>
@@ -79,12 +83,31 @@
                     </div>
 
                     <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Login</button>
+                      <button class="btn btn-primary w-100" type="submit" name="masuk">Login</button>
                     </div>
                     <div class="col-12">
                       <p class="small mb-0">Belum punya akun? <a href="daftar.php">Buat akun</a></p>
                     </div>
                   </form>
+
+<?php
+if (isset($_POST["masuk"])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $ambil = $koneksi->query("SELECT * FROM masyarakat
+WHERE username='$username' AND password='$password'");
+    $akunyangcocok = $ambil->num_rows;
+    if ($akunyangcocok == 1) {
+        $akun = $ambil->fetch_assoc();
+        $_SESSION["masyarakat"] = $akun;
+        echo "<script> alert('anda sukses login');</script>";
+        echo "<script> location ='masyarakat/index.php';</script>";
+    } else {
+        echo "<script> alert('anda gagal login, cek akun anda');</script>";
+        echo "<script> location ='index.php';</script>";
+    }
+}
+?>
 
                 </div>
               </div>

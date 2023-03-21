@@ -64,7 +64,7 @@
                     <p class="text-center small">Masukan username & password untuk login</p>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate>
+                  <form class="row g-3 needs-validation" action="cek_login.php" method="post" novalidate>
 
                     <div class="col-12">
                       <label for="username" class="form-label">Username</label>

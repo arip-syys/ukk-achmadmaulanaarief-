@@ -1,3 +1,7 @@
+<?php
+session_start();
+include 'koneksi.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -57,12 +61,12 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <span class="d-none d-md-block dropdown-toggle ps-2">Nama</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $_SESSION["masyarakat"]["nama"] ?></span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>Nama</h6>
+              <h6><?php echo $_SESSION["masyarakat"]["nama"] ?></h6>
               <span>Masyarakat</span>
             </li>
 
@@ -71,7 +75,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="../logout.php">
+              <a class="dropdown-item d-flex align-items-center" href="logout.php">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Logout</span>
               </a>
@@ -168,19 +172,25 @@
                     <th scope="col">No.</th>
                     <th scope="col">Tanggal Aduan</th>
                     <th scope="col">Judul Laporan</th>
+                    <th scope="col">Isi Laporan</th>
                     <th scope="col">Foto</th>
-                    <th scope="col">Aksi</th>
 
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Brandon Jacob</td>
-                    <td>Designer</td>
-                    <td>28</td>
-                    <td>2016-05-25</td>
-                  </tr>
+                <?php $nomor = 1;
+                $id_masyarakat = $_SESSION["masyarakat"]['id_masyarakat'];
+                $ambil = $koneksi->query("SELECT *FROM pengaduan WHERE id_masyarakat='$id_masyarakat' AND status='proses'");
+                while ($pecah = $ambil->fetch_assoc()) { ?>
+                <tr>
+                <td><?php echo $nomor; ?></td>
+                <td><?php echo date("d F Y", strtotime($pecah['tgl_pengaduan'])) ?></td>
+                <td><?php echo $pecah["judul_laporan"] ?></td>
+                <td><?php echo $pecah["isi_laporan"] ?></td>
+                <td><img src="0-<?php echo $pecah["foto"] ?>" width="100"></td>
+                </tr>
+                <?php $nomor++; ?>
+                <?php } ?>
                 </tbody>
               </table>
               <!-- End Table with stripped rows -->
@@ -195,17 +205,25 @@
                     <th scope="col">No.</th>
                     <th scope="col">Tanggal Aduan</th>
                     <th scope="col">Judul Laporan</th>
+                    <th scope="col">Isi Laporan</th>
                     <th scope="col">Foto</th>
 
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Brandon Jacob</td>
-                    <td>Designer</td>
-                    <td>28</td>
-                  </tr>
+                <?php $nomor = 1;
+                $id_masyarakat = $_SESSION["masyarakat"]['id_masyarakat'];
+                $ambil = $koneksi->query("SELECT *FROM pengaduan WHERE id_masyarakat='$id_masyarakat' AND status='validasi'");
+                while ($pecah = $ambil->fetch_assoc()) { ?>
+                <tr>
+                <td><?php echo $nomor; ?></td>
+                <td><?php echo date("d F Y", strtotime($pecah['tgl_pengaduan'])) ?></td>
+                <td><?php echo $pecah["judul_laporan"] ?></td>
+                <td><?php echo $pecah["isi_laporan"] ?></td>
+                <td><img src="0-<?php echo $pecah["foto"] ?>" width="100"></td>
+                </tr>
+                <?php $nomor++; ?>
+                <?php } ?>
                 </tbody>
               </table>
               <!-- End Table with stripped rows -->
@@ -220,19 +238,26 @@
                     <th scope="col">No.</th>
                     <th scope="col">Tanggal Aduan</th>
                     <th scope="col">Judul Laporan</th>
+                    <th scope="col">Isi Laporan</th>
                     <th scope="col">Foto</th>
                     <th scope="col">Aksi</th>
 
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Brandon Jacob</td>
-                    <td>Designer</td>
-                    <td>28</td>
-                    <td>2016-05-25</td>
-                  </tr>
+                <?php $nomor = 1;
+                $id_masyarakat = $_SESSION["masyarakat"]['id_masyarakat'];
+                $ambil = $koneksi->query("SELECT *FROM pengaduan WHERE id_masyarakat='$id_masyarakat' AND status='ditanggapi'");
+                while ($pecah = $ambil->fetch_assoc()) { ?>
+                <tr>
+                <td><?php echo $nomor; ?></td>
+                <td><?php echo date("d F Y", strtotime($pecah['tgl_pengaduan'])) ?></td>
+                <td><?php echo $pecah["judul_laporan"] ?></td>
+                <td><?php echo $pecah["isi_laporan"] ?></td>
+                <td><img src="0-<?php echo $pecah["foto"] ?>" width="100"></td>
+                </tr>
+                <?php $nomor++; ?>
+                <?php } ?>
                 </tbody>
               </table>
               <!-- End Table with stripped rows -->
